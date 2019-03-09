@@ -1,0 +1,35 @@
+{
+  "name": "hepject",
+  "version": "1.0.0",
+  "description": "Elegantly Sniff SSL/TLS SIP to HEP via Frida Injection",
+  "main": "hepject.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmangani/hepject.js.git"
+  },
+  "keywords": [
+    "hep",
+    "tls",
+    "ssl",
+    "frida",
+    "sniff",
+    "decrypt",
+    "encrypt",
+    "library",
+    "injection"
+  ],
+  "author": "L. Mangani <lorenzo.mangani@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lmangani/hepject.js/issues"
+  },
+  "homepage": "https://github.com/lmangani/hepject.js#readme",
+  "dependencies": {
+    "frida": "^12.4.0",
+    "hep-js": "^1.0.14",
+    "parsip": "^1.0.5"
+  }
+}
