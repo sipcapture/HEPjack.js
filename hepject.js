@@ -4,6 +4,19 @@
 
 */
 
+/* HEP OUT SOCKET */
+var dgram = require('dgram'),
+    socket = dgram.createSocket("udp4"),
+    HEPjs = require('hep-js');
+var parsip = require('parsip');
+var hepId = 1234;
+var hepPass = '';
+var hepServer = '127.0.0.1';
+var hepPort = 9060;
+
+if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
+if(process.argv.indexOf("-P") != -1){ hepPort = process.argv[process.argv.indexOf("-P") + 1]; }
+
 var frida = require('frida');
 var fs = require('fs');
 var filename = './script.js';
@@ -19,20 +32,6 @@ if(process.argv.indexOf("-v") != -1){ debug = true; }
 
 if(!pid) { console.error('No process defined! Exiting'); process.exit(1); }
 
-/* HEP OUT SOCKET */
-var dgram = require('dgram'),
-    socket = dgram.createSocket("udp4"),
-    HEPjs = require('hep-js');
-var parsip = require('parsip');
-
-var hepId = 1234;
-var hepPass = '';
-var hepServer = '127.0.0.1';
-var hepPort = 9060;
-
-if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
-if(process.argv.indexOf("-P") != -1){ hepPort = process.argv[process.argv.indexOf("-P") + 1]; }
-
 try {
       fs.readFile(filename, function read(err, data) {
         if (!err) {
@@ -42,16 +41,18 @@ try {
 } catch(e) { quit(1,'Failed loading Frida script!'); }
 
 if (!pid){ process.exit(1);}
+
 frida.attach(pid)
 .then(function (session) {
   if (debug) console.log('attached:', session);
   return session.createScript(fsscript);
 })
-.then(function (script) {
-  if(debug) { console.log('script created:', script); }
+.then(function(script) {
+  if(debug) { console.log('script created:', script, script.events); }
+  if (!script.events){ quit(1,'failed initializing script'); }
   console.log('Press Ctrl+C to stop logging...');
   script.events.listen('message', function (message, data) {
-    if(data.length >0) {
+    if(data && data.length >0) {
 	var hep_proto = { "type": "HEP", "version": 3, "payload_type": "SIP", "captureId": hepId, "capturePass": hepPass, "ip_family": 2};
 	var datenow =  new Date().getTime();
 	hep_proto.time_sec = Math.floor(datenow / 1000);
