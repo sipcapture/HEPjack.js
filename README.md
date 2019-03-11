@@ -1,8 +1,14 @@
 <img src="https://github.com/sipcapture/homer-app/raw/master/public/img/homerseven.png" width=45 />&nbsp;<img src="https://cdn.pixabay.com/photo/2012/04/16/13/32/lock-36018_640.png" width="50"/>
 
 # HEPject
-Elegantly Sniff Forward secrecy TLS SIP to HEP at the source via Frida injected SSL library callbacks
+Elegantly Sniff Forward secrecy TLS SIP to HEP at the source via Frida injected `libssl` callbacks
+```
+  ["*libssl*", ["SSL_read", "SSL_write", "SSL_get_fd", "SSL_get_session","SSL_SESSION_get_id"]]
+```
 
+Sounds interesting? Learn more about [Frida](https://www.frida.re/)
+
+---------
 
 ##### Status:
 * Experimental! Please test & contribute!
