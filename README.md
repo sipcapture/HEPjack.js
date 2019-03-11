@@ -6,6 +6,9 @@ Elegantly Sniff Forward secrecy TLS SIP to HEP at the source via Frida injected 
   ["*libssl*", ["SSL_read", "SSL_write", "SSL_get_fd", "SSL_get_session","SSL_SESSION_get_id"]]
 ```
 
+Sounds interesting? Learn more about [Frida](https://www.frida.re/)
+
+---------
 
 ##### Status:
 * Experimental! Please test & contribute!
