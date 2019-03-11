@@ -1,7 +1,6 @@
 /*
   Decrypts and logs a process's SSL/SIP traffic via Frida Code Injection
   2019, QXIP BV, Lorenzo Mangani <lorenzo.mangani@gmail.com>
-
 */
 
 /* HEP OUT SOCKET */
@@ -73,7 +72,6 @@ frida.attach(pid)
   console.log('error:', error.message);
 });
 
-
 /* SIP Parsing */
 const parseSIP = function(msg, rcinfo){
 	if (debug) console.log('Trying to parse..',msg,rcinfo);
@@ -86,7 +84,11 @@ const parseSIP = function(msg, rcinfo){
 	}
 	catch (e) {
 		if (debug) console.log(e);
-		if (!sipOnly) sendHEP3(msg, rcinfo);
+		if (!sipOnly) {
+			rcinfo.payload_type = 100;
+			rcinfo.proto_type = 100;
+			sendHEP3(msg, rcinfo);
+		}
 	}
 }
 
@@ -110,9 +112,7 @@ const sendHEP3 = function(msg, rcinfo){
 	}
 }
 
-
 /* UDP Socket Handler */
-
 const getSocket = function (type) {
     if (undefined === socket) {
         socket = dgram.createSocket(type);
@@ -132,4 +132,3 @@ const getSocket = function (type) {
     }
     return socket;
 }
-
