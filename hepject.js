@@ -98,7 +98,7 @@ const sendHEP3 = function(msg, rcinfo){
 			var hep_message = HEPjs.encapsulate(msg,rcinfo);
 			if (hep_message) {
 				socket = getSocket('udp4'); 
-				socket.send(hep_message, 0, hep_message.length, hep_port, hep_server, function(err) {
+				socket.send(hep_message, 0, hep_message.length, hepPort, hepServer, function(err) {
 				  	// socket.close();
 				});
 			}
