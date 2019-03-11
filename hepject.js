@@ -21,7 +21,7 @@ var frida = require('frida');
 var fs = require('fs');
 var filename = './script.js';
 var fsscript;
-var debug = false;
+var debug = true;
 var quit = function(code,msg){
 	if (msg) console.log(msg)
 	process.exit(code ? code : 0);
@@ -48,11 +48,12 @@ frida.attach(pid)
   return session.createScript(fsscript);
 })
 .then(function(script) {
-  if(debug) { console.log('script created:', script, script.events); }
+  if(debug) { console.log('script created:', script); }
   if (!script.events){ quit(1,'failed initializing script'); }
   console.log('Press Ctrl+C to stop logging...');
   script.events.listen('message', function (message, data) {
     if(data && data.length >0) {
+	if(debug) { console.log('GOT DATA:', data.toString('utf8'), message) }
 	var hep_proto = { "type": "HEP", "version": 3, "payload_type": "SIP", "captureId": hepId, "capturePass": hepPass, "ip_family": 2};
 	var datenow =  new Date().getTime();
 	hep_proto.time_sec = Math.floor(datenow / 1000);
@@ -72,7 +73,8 @@ frida.attach(pid)
 
 
 /* SIP Parsing */
-var parseSIP = function(msg, rcinfo){
+const parseSIP = function(msg, rcinfo){
+	if (debug) console.log('Trying to parse..',msg,rcinfo);
 	try {
 		var sipmsg = parsip.getSIP(msg);
 		if (sipmsg){
@@ -82,11 +84,12 @@ var parseSIP = function(msg, rcinfo){
 	}
 	catch (e) {
 		if (debug) console.log(e);
+		sendHEP3(msg, rcinfo);
 	}
 }
 
 /* HEP3 Socket OUT */
-var sendHEP3 = function(msg, rcinfo){
+const sendHEP3 = function(msg, rcinfo){
 	if (msg) {
 		try {
 			if (debug) console.log('Sending HEP3 Packet...');
@@ -108,7 +111,7 @@ var sendHEP3 = function(msg, rcinfo){
 
 /* UDP Socket Handler */
 
-var getSocket = function (type) {
+const getSocket = function (type) {
     if (undefined === socket) {
         socket = dgram.createSocket(type);
         socket.on('error', socketErrorHandler);
