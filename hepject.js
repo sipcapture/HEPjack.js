@@ -13,6 +13,7 @@ var hepId = 1234;
 var hepPass = '';
 var hepServer = '127.0.0.1';
 var hepPort = 9060;
+var sipOnly = true;
 const ipInt = require('ip-to-int');
 
 if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
@@ -85,7 +86,7 @@ const parseSIP = function(msg, rcinfo){
 	}
 	catch (e) {
 		if (debug) console.log(e);
-		sendHEP3(msg, rcinfo);
+		if (!sipOnly) sendHEP3(msg, rcinfo);
 	}
 }
 
