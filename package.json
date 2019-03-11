@@ -1,14 +1,14 @@
 {
-  "name": "hepject",
+  "name": "hepjack",
   "version": "1.0.3",
   "description": "Elegantly Sniff SSL/TLS SIP to HEP via Frida Injection",
-  "main": "hepject.js",
+  "main": "hepjack.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lmangani/hepject.js.git"
+    "url": "git+https://github.com/lmangani/hepjack.js.git"
   },
   "keywords": [
     "hep",
@@ -24,9 +24,9 @@
   "author": "L. Mangani <lorenzo.mangani@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lmangani/hepject.js/issues"
+    "url": "https://github.com/lmangani/hepjack.js/issues"
   },
-  "homepage": "https://github.com/lmangani/hepject.js#readme",
+  "homepage": "https://github.com/lmangani/hepjack.js#readme",
   "dependencies": {
     "frida": "^11.0.13",
     "hep-js": "^1.0.14",
