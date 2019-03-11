@@ -1,6 +1,6 @@
 {
   "name": "hepject",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Elegantly Sniff SSL/TLS SIP to HEP via Frida Injection",
   "main": "hepject.js",
   "scripts": {
