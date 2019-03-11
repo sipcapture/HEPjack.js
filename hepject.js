@@ -13,6 +13,7 @@ var hepId = 1234;
 var hepPass = '';
 var hepServer = '127.0.0.1';
 var hepPort = 9060;
+const ipInt = require('ip-to-int');
 
 if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
 if(process.argv.indexOf("-P") != -1){ hepPort = process.argv[process.argv.indexOf("-P") + 1]; }
@@ -57,10 +58,10 @@ frida.attach(pid)
 	var datenow =  new Date().getTime();
 	hep_proto.time_sec = Math.floor(datenow / 1000);
 	hep_proto.time_usec = datenow - (hep_proto.time_sec*1000);
-	hep_proto.srcIp = message.src_addr;
-        hep_proto.dstIp = message.dst_addr;
-        hep_proto.srcPort = message.src_port;
-        hep_proto.dstPort = message.dst_port;
+	hep_proto.srcIp = ipInt(message.payload.src_addr).toIP();
+        hep_proto.dstIp = ipInt(message.payload.dst_addr).toIP();
+        hep_proto.srcPort = message.payload.src_port;
+        hep_proto.dstPort = message.payload.dst_port;
 	parseSIP(data.toString('utf8'),hep_proto);
     }
   });
