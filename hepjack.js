@@ -12,7 +12,7 @@ var hepId = 1234;
 var hepPass = '';
 var hepServer = '127.0.0.1';
 var hepPort = 9060;
-var sipOnly = true;
+var sipOnly = false;
 const ipInt = require('ip-to-int');
 
 if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
