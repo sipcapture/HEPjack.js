@@ -1,4 +1,4 @@
-<img src="https://github.com/sipcapture/homer-app/raw/master/public/img/homerseven.png" width=145 />
+<img src="https://user-images.githubusercontent.com/1423657/55069501-8348c400-5084-11e9-9931-fefe0f9874a7.png" width=200/>
 
 # <img src="https://cdn.pixabay.com/photo/2012/04/16/13/32/lock-36018_640.png" width="60"/>HEPjack
 Elegantly Sniff Forward secrecy TLS SIP to HEP at the source via Frida injected `libssl` callbacks
