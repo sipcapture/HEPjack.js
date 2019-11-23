@@ -6,7 +6,7 @@ Elegantly Sniff Forward secrecy TLS SIP to HEP at the source via Frida injected 
   ["*libssl*", ["SSL_read", "SSL_write", "SSL_get_fd", "SSL_get_session","SSL_SESSION_get_id"]]
 ```
 
-<img src="https://user-images.githubusercontent.com/1423657/54166566-1b7c6180-4466-11e9-998f-2a2078a1bee6.png" width=600>
+<img src="https://user-images.githubusercontent.com/1423657/69482944-e82a0900-0e21-11ea-8c17-a1f0e80a4e87.png" width=500>
 
 Sounds interesting? Learn more about [Frida](https://www.frida.re/)
 
