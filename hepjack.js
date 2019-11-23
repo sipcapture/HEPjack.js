@@ -13,10 +13,14 @@ var hepPass = '';
 var hepServer = '127.0.0.1';
 var hepPort = 9060;
 var sipOnly = false;
+var xHeader = false;
+var xRegex = false;
 const ipInt = require('ip-to-int');
 
 if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
 if(process.argv.indexOf("-P") != -1){ hepPort = process.argv[process.argv.indexOf("-P") + 1]; }
+if(process.argv.indexOf("-X") != -1){ xHeader = process.argv[process.argv.indexOf("-X") + 1]; }
+if(process.argv.indexOf("-R") != -1){ xRegex = process.argv[process.argv.indexOf("-R") + 1]; }
 
 var frida = require('frida');
 var fs = require('fs');
@@ -78,7 +82,10 @@ const parseSIP = function(msg, rcinfo){
 	try {
 		var sipmsg = parsip.getSIP(msg);
 		if (sipmsg){
-			if (sipmsg.headers['Call-ID'][0].parsed) rcinfo.correlation_id =sipmsg.headers['Call-ID'][0].parsed;
+			if (sipmsg.headers['Call-ID'][0].parsed) rcinfo.correlation_id = sipmsg.headers['Call-ID'][0].parsed;
+			if (xHeader) {
+			  if (sipmsg.headers[xHeader][0].parsed) rcinfo.correlation_id = sipmsg.headers[xHeader][0].parsed;
+			}
 			sendHEP3(msg, rcinfo);
 		}
 	}
@@ -87,6 +94,10 @@ const parseSIP = function(msg, rcinfo){
 		if (!sipOnly) {
 			rcinfo.payload_type = 100;
 			rcinfo.proto_type = 100;
+			if (xRegex){
+			  var extract = msg.match(xRegex);
+			  if (extract && extract[1]) rcinfo.correlation_id = extract[1];
+			}
 			sendHEP3(msg, rcinfo);
 		}
 	}
