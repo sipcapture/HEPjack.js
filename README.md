@@ -30,6 +30,8 @@ npm install
 -p     pid or process to attach to
 -S     HEP Server IP/hostname
 -P     HEP Server port
+-X     SIP X-Header extraction to correlation_id (optional)
+-R     LOG Regex extraction to correlation_id (optional)
 ```
 
 ## Usage
