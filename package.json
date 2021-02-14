@@ -1,8 +1,11 @@
 {
   "name": "hepjack",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Elegantly Sniff SSL/TLS SIP to HEP via Frida Injection",
   "main": "hepjack.js",
+  "bin": {
+    "hepjack": "./hepjack.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
