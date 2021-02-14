@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
   Decrypts and logs a process's SSL/SIP traffic via Frida Code Injection
   2019, QXIP BV, Lorenzo Mangani <lorenzo.mangani@gmail.com>
