@@ -16,7 +16,7 @@ Sounds interesting? Learn more about [Frida](https://www.frida.re/)
 * Experimental! Please test & contribute!
 
 ## Requirements
-* NodeJS 10.x
+* NodeJS 10.x or higher
 * Frida 
    * ```sudo pip install frida```
 
@@ -36,7 +36,7 @@ npm install
 
 ## Usage
 ```
-nodejs hepjack.js -p <process> -S 127.0.0.1 -P 9060
+hepjack.js -p <process> -S 127.0.0.1 -P 9060
 ```
 
 ### Todo
@@ -52,4 +52,4 @@ If you use this software in production, please consider supporting its developme
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donation%40sipcapture%2eorg&lc=US&item_name=SIPCAPTURE&no_note=0&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest) 
 
-###### (C) 2008-2019 QXIP BV
+###### (C) 2008-2021 QXIP BV
