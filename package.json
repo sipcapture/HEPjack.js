@@ -32,8 +32,8 @@
   "homepage": "https://github.com/lmangani/hepjack.js#readme",
   "dependencies": {
     "frida": "^11.0.13",
-    "hep-js": "^1.0.14",
+    "hep-js": "^1.0.20",
     "ip-to-int": "^0.3.1",
-    "parsip": "^1.0.5"
+    "parsip": "^1.0.6"
   }
 }
