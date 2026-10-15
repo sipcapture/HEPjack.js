@@ -16,13 +16,34 @@ var hepServer = '127.0.0.1';
 var hepPort = 9060;
 var sipOnly = false;
 var xHeader = false;
-var xRegex = false;
+var correlationMarker = false;
 const ipInt = require('ip-to-int');
+const MAX_CORRELATION_MARKER_LENGTH = 256;
 
 if(process.argv.indexOf("-S") != -1){ hepServer = process.argv[process.argv.indexOf("-S") + 1]; }
 if(process.argv.indexOf("-P") != -1){ hepPort = process.argv[process.argv.indexOf("-P") + 1]; }
 if(process.argv.indexOf("-X") != -1){ xHeader = process.argv[process.argv.indexOf("-X") + 1]; }
-if(process.argv.indexOf("-R") != -1){ xRegex = process.argv[process.argv.indexOf("-R") + 1]; }
+if(process.argv.indexOf("-R") != -1){
+  correlationMarker = process.argv[process.argv.indexOf("-R") + 1];
+  if (!correlationMarker || correlationMarker.length > MAX_CORRELATION_MARKER_LENGTH) {
+    console.error('-R marker must be between 1 and ' + MAX_CORRELATION_MARKER_LENGTH + ' characters');
+    process.exit(1);
+  }
+}
+
+const extractCorrelationFromLog = function (msg, marker) {
+  var idx = msg.indexOf(marker);
+  if (idx === -1) {
+    return null;
+  }
+  var value = msg.slice(idx + marker.length);
+  var lineBreak = value.search(/\r|\n/);
+  if (lineBreak !== -1) {
+    value = value.slice(0, lineBreak);
+  }
+  value = value.trim();
+  return value || null;
+};
 
 var frida = require('frida');
 var fs = require('fs');
@@ -96,9 +117,9 @@ const parseSIP = function(msg, rcinfo){
 		if (!sipOnly) {
 			rcinfo.payload_type = 100;
 			rcinfo.proto_type = 100;
-			if (xRegex){
-			  var extract = msg.match(xRegex);
-			  if (extract && extract[1]) rcinfo.correlation_id = extract[1];
+			if (correlationMarker){
+			  var correlationId = extractCorrelationFromLog(msg, correlationMarker);
+			  if (correlationId) rcinfo.correlation_id = correlationId;
 			}
 			sendHEP3(msg, rcinfo);
 		}

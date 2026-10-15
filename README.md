@@ -41,7 +41,7 @@ npm test
 -S     HEP Server IP/hostname
 -P     HEP Server port
 -X     SIP X-Header extraction to correlation_id (optional)
--R     LOG Regex extraction to correlation_id (optional)
+-R     LOG marker before correlation_id on the same line (optional, literal text)
 ```
 
 ## Usage
