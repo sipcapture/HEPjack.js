@@ -48,7 +48,8 @@ quiet but you expect SIP on the TLS socket.
 3. **Completeness** — SIP methods, headers, and bodies in Homer match what you
    expect from the call scenario (INVITE/200/ACK/BYE, registrations, etc.).
 4. **Correlation** — Optional `-X` / `-R` flags populate `correlation_id` when
-   you need a custom header or regex extraction.
+   you need a custom SIP header or a literal log marker (for example
+   `Call-ID: `) before the value on the same line.
 
 ## Platform checklist
 
