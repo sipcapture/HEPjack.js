@@ -56,9 +56,9 @@ frida.attach(pid)
 })
 .then(function(script) {
   if(debug) { console.log('script created:', script); }
-  if (!script.events){ quit(1,'failed initializing script'); }
+  if (!script.message){ quit(1,'failed initializing script'); }
   console.log('Press Ctrl+C to stop logging...');
-  script.events.listen('message', function (message, data) {
+  script.message.connect(function (message, data) {
     if(data && data.length >0) {
 	if(debug) { console.log('GOT DATA:', data.toString('utf8'), message) }
 	var hep_proto = { "type": "HEP", "version": 3, "payload_type": "SIP", "captureId": hepId, "capturePass": hepPass, "ip_family": 2};

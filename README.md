@@ -21,8 +21,17 @@ Sounds interesting? Learn more about [Frida](https://www.frida.re/)
    * ```sudo pip install frida```
 
 ## Installation
+
+Use a supported Node.js LTS release (16 or newer). The `frida` package ships
+prebuilt native binaries for common desktop/server platforms (Linux x64/arm64,
+macOS, Windows). If npm falls back to compiling Frida from source (`node-gyp
+rebuild`), installation will fail unless you have the Frida development headers
+installed. Mobile shells such as Termux are not supported hosts for the Node
+`frida` binding.
+
 ```
 npm install
+npm test
 ```
 
 ### Parameters
