@@ -14,6 +14,7 @@ Sounds interesting? Learn more about [Frida](https://www.frida.re/)
 
 ##### Status:
 * Experimental! Please test & contribute!
+* See [TESTING.md](TESTING.md) for lab setup, verification steps, and how to report results on [issue #2](https://github.com/sipcapture/HEPjack.js/issues/2).
 
 ## Requirements
 * NodeJS 10.x or higher
